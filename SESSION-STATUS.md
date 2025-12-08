@@ -1,12 +1,12 @@
 # 918 to UGREEN Transfer - Session Status
-**Last Updated:** 2025-12-08 17:15 CET
-**Overall Status:** ✅ ALL TRANSFERS COMPLETE
+**Last Updated:** 2025-12-08 19:15 CET
+**Overall Status:** 🟡 TRANSFER IN PROGRESS
 
 ---
 
-## Current Status: ✅ SUCCESS - 1.95 TB Transferred
+## Current Status: 🟡 IN PROGRESS - 3.8 TB Transfer Running
 
-All planned transfers completed successfully with 100% data integrity verified.
+Large backup transfer currently in progress. Previous transfers (1.95 TB) completed successfully.
 
 ---
 
@@ -33,9 +33,26 @@ All planned transfers completed successfully with 100% data integrity verified.
 - **Status:** Complete & Verified
 - **Completed:** 2025-12-08
 
-**Total Transferred:** 1.95 TB (1,950 GB)
-**Total Files:** 4,048
+**Total Completed:** 1.95 TB (4,048 files)
 **Success Rate:** 100%
+
+---
+
+## Active Transfers
+
+### 4. backupstomove 🟡 IN PROGRESS
+- **Size:** 3.8 TB (63,242 files)
+- **Source:** 192.168.40.10:/volume2/Filmy 10TB/backupstomove
+- **Destination:** /storage/Media/20251209backupsfrom918/
+- **Compression:** LZ4 (ZFS)
+- **Status:** Transfer in progress
+- **Started:** 2025-12-08 19:08:45
+- **Progress:** ~4.6 GB / 3.8 TB (~0.1%)
+- **Screen Session:** backupstomove-transfer
+- **Expected Completion:** 2025-12-09 03:00-07:00 (8-12 hours)
+- **Log:** /root/nas-transfer-logs/backupstomove-20251208-190845.log
+
+**Monitor:** `screen -r backupstomove-transfer`
 
 ---
 
@@ -47,6 +64,7 @@ Current mounts from 918 NAS to UGREEN Proxmox:
 192.168.40.10:/volume1/Filmy918   → /mnt/918-filmy918   (read-only, NFSv4)
 192.168.40.10:/volume1/Series918  → /mnt/918-series918  (read-only, NFSv4)
 192.168.40.10:/volume3/14TB       → /mnt/918-14tb       (read-only, NFSv4)
+192.168.40.10:/volume2            → /mnt/918-volume2    (read-only, NFSv4)
 ```
 
 All mounts healthy and accessible.
@@ -153,6 +171,13 @@ Available in `/volume1/Series918/`:
 - Updated session status
 - Project objectives met
 
+### Session 5 (2025-12-08 Evening)
+- Mounted volume2 from 918 NAS
+- Found backupstomove folder (3.8 TB)
+- Created compressed ZFS dataset (20251209backupsfrom918)
+- Started large backup transfer
+- Total in progress: 3.8 TB
+
 ---
 
 ## Directory Structure
@@ -160,14 +185,22 @@ Available in `/volume1/Series918/`:
 ### UGREEN Media Storage
 ```
 /storage/Media/
-├── Movies918/               (998 GB)
+├── Movies918/                         (998 GB)
 │   ├── 2018/
 │   ├── 2022/
 │   ├── 2023/
 │   └── Misc/
-│       └── aaafilmscopy/    (517 GB)
-└── Series918/               (435 GB)
-    └── TVshows918/
+│       └── aaafilmscopy/              (517 GB)
+├── Series918/                         (435 GB)
+│   └── TVshows918/
+└── 20251209backupsfrom918/            (3.8 TB - IN PROGRESS 🟡)
+    ├── Backup dokumenty z domowego 2023 07 14/
+    ├── Backup drugie dokumenty z domowego 2023 07 14/
+    ├── Backup pendrive 256 GB 2023 08 23/
+    ├── backup seriale 2022 od 2023 09 28/
+    ├── Backupy zdjęć Google od 2507/
+    ├── Backup z DELL XPS 2024 11 01/
+    └── Zgrane ze starego dysku 2023 08 31/
 ```
 
 ### Project Repository
@@ -179,8 +212,10 @@ Available in `/volume1/Series918/`:
 ├── SESSION-2-SUMMARY.md                # First transfers
 ├── SESSION-3-SUMMARY.md                # Windows + aaafilmscopy
 ├── SESSION-4-SUMMARY.md                # Verification
+├── SESSION-5-SUMMARY.md                # backupstomove transfer
 ├── WINDOWS-11-SETUP-GUIDE.md           # End-user guide
-├── setup-nfs-mounts.sh                 # NFS mount setup
+├── setup-nfs-mounts.sh                 # NFS mount setup (vol1, vol3)
+├── mount-volume2.sh                    # Mount volume2
 ├── START-TRANSFERS.sh                  # Transfer launcher
 ├── transfer-movies-nfs.sh              # Movies transfer script
 ├── transfer-tvshows-nfs.sh             # TV shows transfer script
@@ -190,6 +225,9 @@ Available in `/volume1/Series918/`:
 ├── check-aaafilmscopy.sh               # Pre-transfer check
 ├── copy-aaafilmscopy.sh                # Main copy script
 ├── start-aaafilmscopy.sh               # Screen launcher
+├── setup-compressed-backup.sh          # Create compressed dataset
+├── copy-backupstomove.sh               # backupstomove transfer
+├── start-backupstomove-transfer.sh     # Screen launcher for backups
 └── .git/                               # Version control
 ```
 
@@ -364,12 +402,13 @@ git push
 | Movies918 | `/storage/Media/Movies918/` | ✅ 998 GB |
 | Series918 | `/storage/Media/Series918/` | ✅ 435 GB |
 | aaafilmscopy | `/storage/Media/Movies918/Misc/aaafilmscopy/` | ✅ 517 GB |
+| backupstomove | `/storage/Media/20251209backupsfrom918/` | 🟡 3.8 TB (IN PROGRESS) |
 | Windows Access | `\\192.168.40.60\Movies918` | ✅ Working |
-| NFS Mounts | `/mnt/918-*` | ✅ Active |
+| NFS Mounts | `/mnt/918-*` | ✅ Active (4 volumes) |
 | Documentation | `/home/sleszugreen/nas-transfer/` | ✅ Complete |
 
 ---
 
-**Last verified:** 2025-12-08 17:15 CET
-**Status:** All transfers complete and verified
-**Next action:** None required (optional: explore additional content)
+**Last verified:** 2025-12-08 19:15 CET
+**Status:** Large backup transfer in progress (3.8 TB)
+**Next action:** Monitor transfer progress, verify completion tomorrow morning
