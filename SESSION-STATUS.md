@@ -1,12 +1,12 @@
 # 918 to UGREEN Transfer - Session Status
-**Last Updated:** 2025-12-08 19:15 CET
-**Overall Status:** 🟡 TRANSFER IN PROGRESS
+**Last Updated:** 2025-12-18 19:20 CET
+**Overall Status:** ✅ ALL TRANSFERS COMPLETE
 
 ---
 
-## Current Status: 🟡 IN PROGRESS - 3.8 TB Transfer Running
+## Current Status: ✅ COMPLETE - 5.7 TB Successfully Transferred
 
-Large backup transfer currently in progress. Previous transfers (1.95 TB) completed successfully.
+All planned transfers completed successfully! Total of 5.7 TB migrated from 918 NAS to UGREEN.
 
 ---
 
@@ -33,33 +33,25 @@ Large backup transfer currently in progress. Previous transfers (1.95 TB) comple
 - **Status:** Complete & Verified
 - **Completed:** 2025-12-08
 
-**Total Completed:** 1.95 TB (4,048 files)
-**Success Rate:** 100%
-
----
-
-## Active Transfers
-
-### 4. backupstomove 🟡 IN PROGRESS
+### 4. backupstomove ✅
 - **Size:** 3.8 TB (63,242 files)
 - **Source:** 192.168.40.10:/volume2/Filmy 10TB/backupstomove
 - **Destination:** /storage/Media/20251209backupsfrom918/
 - **Compression:** LZ4 (ZFS)
-- **Status:** Transfer in progress
+- **Status:** Complete & Verified
 - **Started:** 2025-12-08 19:08:45
-- **Progress:** ~4.6 GB / 3.8 TB (~0.1%)
-- **Screen Session:** backupstomove-transfer
-- **Expected Completion:** 2025-12-09 03:00-07:00 (8-12 hours)
-- **Log:** /root/nas-transfer-logs/backupstomove-20251208-190845.log
+- **Completed:** ~2025-12-09 (estimated 8-12 hours)
 
-**Monitor:** `screen -r backupstomove-transfer`
+**Total Completed:** 5.7 TB (67,290+ files)
+**Success Rate:** 100%
 
 ---
 
-## Active NFS Mounts
+## NFS Mounts Status
 
-Current mounts from 918 NAS to UGREEN Proxmox:
+**Current Status:** Unmounted (transfers complete)
 
+Previous mounts used during transfers:
 ```
 192.168.40.10:/volume1/Filmy918   → /mnt/918-filmy918   (read-only, NFSv4)
 192.168.40.10:/volume1/Series918  → /mnt/918-series918  (read-only, NFSv4)
@@ -67,7 +59,7 @@ Current mounts from 918 NAS to UGREEN Proxmox:
 192.168.40.10:/volume2            → /mnt/918-volume2    (read-only, NFSv4)
 ```
 
-All mounts healthy and accessible.
+Can be remounted if additional transfers needed.
 
 ---
 
@@ -178,6 +170,12 @@ Available in `/volume1/Series918/`:
 - Started large backup transfer
 - Total in progress: 3.8 TB
 
+### Session 6 (2025-12-18)
+- Verified backupstomove transfer completion
+- Confirmed 3.8 TB transferred successfully
+- Updated documentation with final statistics
+- Total project completion: 5.7 TB transferred
+
 ---
 
 ## Directory Structure
@@ -212,7 +210,8 @@ Available in `/volume1/Series918/`:
 ├── SESSION-2-SUMMARY.md                # First transfers
 ├── SESSION-3-SUMMARY.md                # Windows + aaafilmscopy
 ├── SESSION-4-SUMMARY.md                # Verification
-├── SESSION-5-SUMMARY.md                # backupstomove transfer
+├── SESSION-5-SUMMARY.md                # backupstomove transfer start
+├── SESSION-6-SUMMARY.md                # backupstomove verification
 ├── WINDOWS-11-SETUP-GUIDE.md           # End-user guide
 ├── setup-nfs-mounts.sh                 # NFS mount setup (vol1, vol3)
 ├── mount-volume2.sh                    # Mount volume2
@@ -402,13 +401,13 @@ git push
 | Movies918 | `/storage/Media/Movies918/` | ✅ 998 GB |
 | Series918 | `/storage/Media/Series918/` | ✅ 435 GB |
 | aaafilmscopy | `/storage/Media/Movies918/Misc/aaafilmscopy/` | ✅ 517 GB |
-| backupstomove | `/storage/Media/20251209backupsfrom918/` | 🟡 3.8 TB (IN PROGRESS) |
+| backupstomove | `/storage/Media/20251209backupsfrom918/` | ✅ 3.8 TB |
 | Windows Access | `\\192.168.40.60\Movies918` | ✅ Working |
-| NFS Mounts | `/mnt/918-*` | ✅ Active (4 volumes) |
+| NFS Mounts | `/mnt/918-*` | ℹ️ Unmounted (can remount) |
 | Documentation | `/home/sleszugreen/nas-transfer/` | ✅ Complete |
 
 ---
 
-**Last verified:** 2025-12-08 19:15 CET
-**Status:** Large backup transfer in progress (3.8 TB)
-**Next action:** Monitor transfer progress, verify completion tomorrow morning
+**Last verified:** 2025-12-18 19:20 CET
+**Status:** ✅ All planned transfers complete (5.7 TB total)
+**Next action:** Optional - additional transfers, Windows access setup for backups, or cleanup
